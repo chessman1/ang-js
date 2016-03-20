@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+    th,
+    td {
+        border: 1px solid orange;
+    }
+    
+    #myTable {
+        position: absolute;
+        margin-top: 1cm;
+        margin-left: 14.1cm;
+        border-collapse: collapse;
+    }
+    
+    h1 {
+        text-align: center;
+        color: blue;
+    }
+    
+    tr:nth-child(even):hover {
+        background: #33ccff;
+    }
+    
+    tr:nth-child(odd):hover {
+        background: #CCC;
+    }
+    
+    #filter {
+        position: absolute;
+        margin-left: 14cm;
+    }
+    
+    #jamaica {
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        margin-left: 2cm;
+    }
+    
+    #spain {
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        margin-top: 6cm;
+        margin-left: 3cm;
+    }
+    
+    #italy {
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        margin-top: 9cm;
+        margin-left: 8cm;
+    }
+    
+    #portugal {
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        margin-top: 2cm;
+        margin-left: 23cm;
+    }
+    
+    #england {
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        margin-top: 9cm;
+        margin-left: 17cm;
+    }
+    </style>
+</head>
+
+<body ng-app="sortTable">
+    <script src="../scripts/angular.js"></script>
+    <div ng-controller="HomeController">
+        `
+        <h1>Enter text to filter the info</h1>
+        <input id="filter" type="text" ng-model="name" />
+        <table id="myTable">
+            <thead>
+                <tr>
+                    <th ng-click="sortOrder('name');rSort = !rSort">Name</th>
+                    <th ng-click="sortOrder('age');rSort = !rSort">Age</th>
+                    <th ng-click="sortOrder('country');rSort = !rSort">Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="person in people |orderBy : sort : rSort| filter : name">
+                    <td>{{person.name}}</td>
+                    <td>{{person.age}}</td>
+                    <td>{{person.country}} </td>
+                </tr>
+            </tbody>
+        </table>
+        <img id="jamaica" src="flags/jamaica.jpg" alt="jamaica" ng-click="clickJamaica()" />
+        <img id="spain" src="flags/spain.jpg" alt="spain" ng-click="clickSpain()" />
+        <img id="italy" src="flags/italy.jpg" alt="italy" ng-click="clickItaly()" />
+        <img id="portugal" src="flags/portugal.jpg" alt="portugal" ng-click="clickPortugal()" />
+        <img id="england" src="flags/england.jpg" alt="england" ng-click="clickEngland()" />
+    </div>
+    <script>
+    angular.module("sortTable", [])
+        .controller('HomeController', ['$scope', function($scope) {
+            $scope.people = [{
+                name: "Alex",
+                age: "25",
+                country: "Spain"
+            }, {
+                name: "George",
+                age: "17",
+                country: "Italy"
+            }, {
+                name: "Peter",
+                age: "27",
+                country: "England"
+            }, {
+                name: "Jack",
+                age: "41",
+                country: "England"
+            }, {
+                name: "Victor",
+                age: "17",
+                country: "Portugal"
+            }, {
+                name: "Silvester",
+                age: "11",
+                country: "Jamaica"
+            }, {
+                name: "Simon",
+                age: "14",
+                country: "Portugal"
+            }, {
+                name: "Clark",
+                age: "10",
+                country: "England"
+            }, {
+                name: "Victoria",
+                age: "21",
+                country: "Jamaica"
+            }];
+
+            $scope.sortOrder = function(x) {
+                $scope.sort = x;
+            }
+
+            $scope.rSort = true;
+
+            $scope.clickJamaica = function() {
+                $scope.name = "Jamaica";
+            }
+            $scope.clickSpain = function() {
+                $scope.name = "Spain";
+            }
+            $scope.clickItaly = function() {
+                $scope.name = "Italy";
+            }
+            $scope.clickPortugal = function() {
+                $scope.name = "Portugal";
+            }
+            $scope.clickEngland = function() {
+                $scope.name = "England";
+            }
+        }]);
+    </script>
+</body>
+
+</html>
